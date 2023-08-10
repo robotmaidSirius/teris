@@ -28,6 +28,6 @@ function that {
         echo " "
     fi
     echo $run_cmd
-    $run_cmd
+    # $run_cmd
     history -s $run_cmd
 }

@@ -13,9 +13,9 @@ echo 'source '${HOME}'/simple_my_shell/env.bash '${HOME}'/simple_my_shell' >> ${
 
 ## Aliases list
 
-| Aliases | Command                                 |
-| ------- | --------------------------------------- |
-| to_cui  | systemctl set-default multi-user.target |
-| to_gui  | systemctl set-default graphical.target  |
-| that    | command list                            |
+| Aliases | Command                                     |
+| ------- | ------------------------------------------- |
+| that    | Select a command and register it in history |
+| to_cui  | systemctl set-default multi-user.target     |
+| to_gui  | systemctl set-default graphical.target      |
 
