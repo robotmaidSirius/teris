@@ -1,0 +1,5 @@
+jq
+yq
+openssh-server
+llvm
+clang-format
