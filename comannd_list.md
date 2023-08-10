@@ -1,5 +1,6 @@
 shutdown -h 0
 
+printenv
 source ${HOME}/.bashrc
 apt list --installed
 pip install --upgrade pip
