@@ -1,4 +1,6 @@
 shutdown -h 0
+
+source ${HOME}/.bashrc
 apt list --installed
 pip install --upgrade pip
 pip list

@@ -3,3 +3,5 @@ yq
 openssh-server
 llvm
 clang-format
+graphviz
+openjdk-17-jdk
