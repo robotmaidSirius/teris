@@ -11,6 +11,22 @@ function to_gui {
   sudo systemctl get-default
 }
 
+function open_port {
+  local ip_addr=${1:-127.0.0.1}
+  local result=""
+  local port_min=0
+  local port_max=0
+  read -p " PORT MIN > " port_min
+  read -p " PORT MAX > " port_max
+  echo "Search port ${ip_addr}:${port_min} -> ${ip_addr}:${port_max} "
+  for n in $(seq $(echo $port_min) $port_max)
+  do
+    result=$(nc ${ip_addr} ${n} -w 1)
+    if [[ "${result}" != "" ]]; then
+      echo "${ip_addr}:${n} / ${result}"
+    fi
+  done
+}
 
 function that {
     local run_option=''

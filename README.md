@@ -13,9 +13,11 @@ echo 'source '${HOME}'/simple_my_shell/env.bash '${HOME}'/simple_my_shell' >> ${
 
 ## Aliases list
 
-| Aliases | Command                                     |
-| ------- | ------------------------------------------- |
-| that    | Select a command and register it in history |
-| to_cui  | systemctl set-default multi-user.target     |
-| to_gui  | systemctl set-default graphical.target      |
+| Aliases   | Command                                 | Note.                                       |
+| --------- | --------------------------------------- | ------------------------------------------- |
+| that      | --                                      | Select a command and register it in history |
+| to_cui    | systemctl set-default multi-user.target | Switch to CUI                               |
+| to_gui    | systemctl set-default graphical.target  | Switch to GUI                               |
+| open_port | nc IP_ADDRESS PORT -w 1                 | Explore each port information.              |
+
 
