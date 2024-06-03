@@ -10,4 +10,6 @@ to_gui
 open_port "#ARGUMENT#"
 git config --global user.name "#ARGUMENT#"
 git config --global user.email "#ARGUMENT#"
+git config --global --list
+sudo gpasswd -a $USER docker
 source ${SIMPLE_MY_SHELL_DIR}/env.bash ${SIMPLE_MY_SHELL_DIR}

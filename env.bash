@@ -1,5 +1,9 @@
 #!/bin/bash
-SIMPLE_MY_SHELL_DIR="$1"
+SIMPLE_MY_SHELL_DIR=${1:-$(dirname $0)}
+if [ ! -e ${SIMPLE_MY_SHELL_DIR}/comannd_list.md ]; then
+  echo [EEROR] simple_my_shell : Not Found Direcctory : ${SIMPLE_MY_SHELL_DIR}
+  return
+fi
 
 function to_cui {
   sudo systemctl set-default multi-user.target
@@ -38,7 +42,7 @@ function that {
         echo "  COMMAND : "${run_cmd}
         read -p "  Do you want to execute? (y:Yes/n:No): " yn
         case "$yn" in
-            [yY]*);;
+            [yY]*) ${run_cmd};;
             *) return ;;
         esac
         echo " "

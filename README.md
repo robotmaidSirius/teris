@@ -7,7 +7,8 @@ It is for easily calling commands that are used all the time but are not known u
 ```bash
 sudo apt install -y fzf
 
-echo 'source '${HOME}'/simple_my_shell/env.bash '${HOME}'/simple_my_shell' >> ${HOME}/.bashrc
+SIMPLE_MY_SHELL_DIR=${HOME}/.simple_my_shell
+echo 'source '${SIMPLE_MY_SHELL_DIR}'/env.bash '${SIMPLE_MY_SHELL_DIR}'' >> ${HOME}/.bashrc
 ```
 
 
