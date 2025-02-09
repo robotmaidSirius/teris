@@ -13,3 +13,4 @@ git config --global --list
 ssh -T git@github.com
 sudo gpasswd -a $USER docker
 source ${SIMPLE_MY_SHELL_DIR}/env.bash ${SIMPLE_MY_SHELL_DIR}
+sudo hostnamectl set-hostname "#ARGUMENT#"
