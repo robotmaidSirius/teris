@@ -1,5 +1,6 @@
 shutdown -h 0
 
+mypy
 printenv
 source ${HOME}/.bashrc
 apt list --installed

@@ -1,7 +1,7 @@
 #!/bin/bash
 SIMPLE_MY_SHELL_DIR=${1:-$(dirname $0)}
-if [ ! -e ${SIMPLE_MY_SHELL_DIR}/comannd_list.md ]; then
-  echo [EEROR] simple_my_shell : Not Found Direcctory : ${SIMPLE_MY_SHELL_DIR}
+if [ ! -e ${SIMPLE_MY_SHELL_DIR}/command_list/common.md ]; then
+  echo [ERROR] simple_my_shell : Not Found Directory : ${SIMPLE_MY_SHELL_DIR}
   return
 fi
 
@@ -34,11 +34,11 @@ function open_port {
 
 function that {
     local run_option=''
-    local run_cmd=$(cat ${SIMPLE_MY_SHELL_DIR}/comannd_list.md | fzf)
+    local run_cmd=$(cat ${SIMPLE_MY_SHELL_DIR}/command_list/common.md | fzf)
     run_cmd=$(eval echo ${run_cmd})
     if [[ "${run_cmd}" =~  "#ARGUMENT#" ]]; then
         read -p "  > " run_option
-        run_cmd=$(echo $run_cmd | sed -e "s/#ARGUMENT#/${run_option}/")
+        run_cmd=$(echo ${run_cmd} | sed -e "s/#ARGUMENT#/${run_option}/")
         echo "  COMMAND : "${run_cmd}
         read -p "  Do you want to execute? (y:Yes/n:No): " yn
         case "$yn" in
@@ -47,7 +47,26 @@ function that {
         esac
         echo " "
     fi
-    echo $run_cmd
-    # $run_cmd
-    history -s $run_cmd
+    echo ${run_cmd}
+    # ${run_cmd}
+    history -s ${run_cmd}
+}
+
+function mypy {
+    local run_option=''
+    local run_cmd=$(cat ${SIMPLE_MY_SHELL_DIR}/command_list/python_list.md | fzf)
+    run_cmd=$(eval echo ${run_cmd})
+    if [[ "${run_cmd}" =~  "#ARGUMENT#" ]]; then
+        read -p "  > " run_option
+        run_cmd=$(echo ${run_cmd} | sed -e "s/#ARGUMENT#/${run_option}/")
+    fi
+    echo "  COMMAND : "${run_cmd}
+    ${run_cmd}
+    history -s ${run_cmd}
+}
+
+function venv_activate {
+  local env_name=${1}
+  python -m venv ${env_name}
+  source ${env_name}/bin/activate
 }
