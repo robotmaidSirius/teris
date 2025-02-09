@@ -66,7 +66,27 @@ function mypy {
 }
 
 function venv_activate {
-  local env_name=${1}
-  python -m venv ${env_name}
-  source ${env_name}/bin/activate
+  local env_path="${HOME}/.my_venv"
+  if [ ! -d "${env_path}" ]; then
+    mkdir -p ${env_path}
+  fi
+  if [ ! -d "${env_path}/NEW" ]; then
+    mkdir -p ${env_path}/NEW
+  fi
+
+  pushd "${env_path}" >/dev/null 2>&1
+    local env_name=$(find * -maxdepth 0 -type d | fzf)
+    local flag_input=false;
+    if [ "NEW" == ${env_name} ]; then
+      flag_input=true
+    elif [ "" == ${env_name} ]; then
+      flag_input=true
+    fi
+    if [ true == ${flag_input} ]; then
+      read -p "  > " env_name
+    fi
+    python -m venv ${env_name}
+    source ${env_name}/bin/activate
+  popd >/dev/null 2>&1
+  echo "$(python -V) : $(which python)"
 }

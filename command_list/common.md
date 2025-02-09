@@ -4,8 +4,6 @@ mypy
 printenv
 source ${HOME}/.bashrc
 apt list --installed
-pip install --upgrade pip
-pip list
 to_cui
 to_gui
 open_port "#ARGUMENT#"

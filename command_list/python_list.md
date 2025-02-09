@@ -1,2 +1,4 @@
-venv_activate "#ARGUMENT#"
+venv_activate
 deactivate
+pip install --upgrade pip
+pip list
