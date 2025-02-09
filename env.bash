@@ -70,14 +70,14 @@ function venv_activate {
   if [ ! -d "${env_path}" ]; then
     mkdir -p ${env_path}
   fi
-  if [ ! -d "${env_path}/NEW" ]; then
-    mkdir -p ${env_path}/NEW
+  if [ ! -d "${env_path}/__NEW__" ]; then
+    mkdir -p ${env_path}/__NEW__
   fi
 
   pushd "${env_path}" >/dev/null 2>&1
     local env_name=$(find * -maxdepth 0 -type d | fzf)
     local flag_input=false;
-    if [ "NEW" == ${env_name} ]; then
+    if [ "__NEW__" == ${env_name} ]; then
       flag_input=true
     elif [ "" == ${env_name} ]; then
       flag_input=true
@@ -89,4 +89,5 @@ function venv_activate {
     source ${env_name}/bin/activate
   popd >/dev/null 2>&1
   echo "$(python -V) : $(which python)"
+  history -s deactivate
 }
