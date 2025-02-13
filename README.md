@@ -1,24 +1,30 @@
-# simple_my_shell
+# Teris
 
-It is for easily calling commands that are used all the time but are not known unless you look them up.
+Teris is a blend of '**TER**minal' and 'Bas**IS**'.
+It provides a simple way to execute frequently used commands that are often forgotten and require looking up.
 
 ## Install
 
 ```bash
 sudo apt install -y fzf
+TERIS_DIR=${HOME}/.teris
 
-SIMPLE_MY_SHELL_DIR=${HOME}/.simple_my_shell
-echo 'source '${SIMPLE_MY_SHELL_DIR}'/env.bash '${SIMPLE_MY_SHELL_DIR}'' >> ${HOME}/.bashrc
+git clone https://github.com/robotmaidSirius/teris.git ${TERIS_DIR}
+
+echo 'source '${TERIS_DIR}'/env.bash '${TERIS_DIR}'' >> ${HOME}/.bashrc
 ```
 
 
-## Aliases list
+## Aliases List
 
-| Aliases   | Command                                 | Note.                                       |
-| --------- | --------------------------------------- | ------------------------------------------- |
-| that      | --                                      | Select a command and register it in history |
-| to_cui    | systemctl set-default multi-user.target | Switch to CUI                               |
-| to_gui    | systemctl set-default graphical.target  | Switch to GUI                               |
-| open_port | nc IP_ADDRESS PORT -w 1                 | Explore each port information.              |
+The following table lists available aliases and their corresponding commands.
+
+| Alias         | Command                                   | Description                                    |
+| ------------- | ----------------------------------------- | ---------------------------------------------- |
+| **that**      | --                                        | Selects a command and registers it in history. |
+| **to_cui**    | `systemctl set-default multi-user.target` | Switches to a command-line interface (CUI).    |
+| **to_gui**    | `systemctl set-default graphical.target`  | Switches to a graphical user interface (GUI).  |
+| **open_port** | `nc IP_ADDRESS PORT -w 1`                 | Checks information about specific ports.       |
+| **mypy**      | --                                        | Selects a Python command.                      |
 
 

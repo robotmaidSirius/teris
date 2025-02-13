@@ -1,7 +1,7 @@
 #!/bin/bash
-SIMPLE_MY_SHELL_DIR=${1:-$(dirname $0)}
-if [ ! -e ${SIMPLE_MY_SHELL_DIR}/command_list/common.md ]; then
-  echo [ERROR] simple_my_shell : Not Found Directory : ${SIMPLE_MY_SHELL_DIR}
+TERIS_DIR=${1:-$(dirname $0)}
+if [ ! -e ${TERIS_DIR}/command_list/common.md ]; then
+  echo "[ERROR] teris : Not Found Directory : "${TERIS_DIR}
   return
 fi
 
@@ -34,7 +34,7 @@ function open_port {
 
 function that {
     local run_option=''
-    local run_cmd=$(cat ${SIMPLE_MY_SHELL_DIR}/command_list/common.md | fzf)
+    local run_cmd=$(cat ${TERIS_DIR}/command_list/common.md | fzf)
     run_cmd=$(eval echo ${run_cmd})
     if [[ "${run_cmd}" =~  "#ARGUMENT#" ]]; then
         read -p "  > " run_option
@@ -46,16 +46,18 @@ function that {
             *) return ;;
         esac
         echo " "
+        echo ${run_cmd}
+    else
+      echo ${run_cmd}
+      ${run_cmd}
     fi
-    echo ${run_cmd}
-    # ${run_cmd}
     history -s ${run_cmd}
 }
 
 function mypy {
     history -s mypy
     local run_option=''
-    local run_cmd=$(cat ${SIMPLE_MY_SHELL_DIR}/command_list/python_list.md | fzf)
+    local run_cmd=$(cat ${TERIS_DIR}/command_list/python_list.md | fzf)
     run_cmd=$(eval echo ${run_cmd})
     if [[ "${run_cmd}" =~  "#ARGUMENT#" ]]; then
         read -p "  > " run_option
@@ -68,7 +70,7 @@ function mypy {
 
 function venv_activate {
   local flag_error=false
-  local env_path="${HOME}/.cache/simple_my_shell/venv"
+  local env_path="${HOME}/.cache/teris/venv"
   if [ ! -d "${env_path}" ]; then
     mkdir -p ${env_path}
   fi
@@ -116,4 +118,65 @@ function pyenv_version_change {
 
   python --version
   pyenv versions
+}
+
+function teris_update() {
+  cd ${TERIS_DIR}
+  echo "Update 'teris': "${TERIS_DIR}
+  git checkout .
+  if [ -f "${TERIS_DIR}/requirements_apt.txt" ]; then
+    apt_in ${TERIS_DIR}/requirements_apt.txt
+  fi
+}
+
+function apt_in() {
+  local REQUIREMENTS_TEXT=${1}
+  if [ -z "${REQUIREMENTS_TEXT}" ]; then
+    echo "[ERROR] Not Found File : "${REQUIREMENTS_TEXT}
+    return
+  elif [ ! -f "${REQUIREMENTS_TEXT}" ]; then
+    echo "[ERROR] Not Found File : "${REQUIREMENTS_TEXT}
+    return
+  fi
+  while read LINE
+  do
+    if [ -z "${LINE}" ]; then continue; fi
+    if [[ ${LINE} =~ ^#.* ]]; then continue; fi
+
+    export APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
+    sudo -E apt install -y ${LINE}
+    if [ $? -ne 0 ]; then
+      echo "[ERROR] Install '${LINE}' is failed" >&2
+    fi
+  done < ${REQUIREMENTS_TEXT}
+}
+
+
+# ========================================
+# Set Environment
+# ========================================
+## MAX_JOBS
+export MAX_JOBS=$((`nproc` - 1))
+if [[ ${MAX_JOBS} -le 0 ]]; then
+  export MAX_JOBS=1
+fi
+
+# ========================================
+function get_jq_value() {
+  local key=${1}
+  local value=$(eval echo $(jq -r '.'${key} ${CONFIG_FILE}));
+  if [ "null" == "${value}" ];then
+    value=""
+  fi
+  echo ${value}
+}
+function flag_jq_value() {
+  local key=${1}
+  local value=$(eval echo $(jq -r '.'${key} ${CONFIG_FILE}));
+  if [ true == "${value}" ];then
+    value=1
+  else
+    value=0
+  fi
+  echo ${value}
 }
