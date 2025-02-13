@@ -121,12 +121,13 @@ function pyenv_version_change {
 }
 
 function teris_update() {
-  cd ${TERIS_DIR}
-  echo "Update 'teris': "${TERIS_DIR}
-  git checkout .
-  if [ -f "${TERIS_DIR}/requirements_apt.txt" ]; then
-    apt_in ${TERIS_DIR}/requirements_apt.txt
-  fi
+  pushd "${TERIS_DIR}" >/dev/null 2>&1
+    echo "Update 'teris': "${TERIS_DIR}
+    git checkout .
+    if [ -f "${TERIS_DIR}/requirements_apt.txt" ]; then
+      apt_in ${TERIS_DIR}/requirements_apt.txt
+    fi
+  popd >/dev/null 2>&1
 }
 
 function apt_in() {
