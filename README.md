@@ -7,10 +7,12 @@ It provides a simple way to execute frequently used commands that are often forg
 
 ```bash
 sudo apt install -y fzf
+```
+
+```bash
 TERIS_DIR=${HOME}/.teris
 
 git clone https://github.com/robotmaidSirius/teris.git ${TERIS_DIR}
-
 echo 'source '${TERIS_DIR}'/env.bash '${TERIS_DIR}'' >> ${HOME}/.bashrc
 ```
 
