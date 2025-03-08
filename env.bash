@@ -90,7 +90,7 @@ function venv_activate {
 function pyenv_version_change {
   PYENV_INSTALL_VERSION=$(pyenv install --list | fzf)
 
-  pyenv install ${PYENV_INSTALL_VERSION}
+  pyenv install --skip-existing ${PYENV_INSTALL_VERSION}
   ret=$?
   if [ 0 == ${ret} ]; then
       pyenv global ${PYENV_INSTALL_VERSION}
