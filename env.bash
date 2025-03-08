@@ -87,14 +87,26 @@ function venv_activate {
   history -s deactivate
 }
 
-function pyenv_version_change {
+function pyenv_install_list {
   PYENV_INSTALL_VERSION=$(pyenv install --list | fzf)
 
   pyenv install --skip-existing ${PYENV_INSTALL_VERSION}
   ret=$?
   if [ 0 == ${ret} ]; then
-      pyenv global ${PYENV_INSTALL_VERSION}
+      # pyenv global ${PYENV_INSTALL_VERSION}
       python3 -m pip install --upgrade pip
+  fi
+
+  python --version
+  pyenv versions
+}
+
+function pyenv_change_local_version {
+  PYENV_INSTALL_VERSION=$(pyenv versions | fzf)
+  if [ ! -z "${PYENV_INSTALL_VERSION}" ]; then
+    echo "Change Python Version : "${PYENV_INSTALL_VERSION}
+    pyenv local ${PYENV_INSTALL_VERSION}
+    python3 -m pip install --upgrade pip
   fi
 
   python --version
